@@ -13,6 +13,17 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get(
+    '/',
+    function () use ($router) {
+        return $router->app->version();
+    }
+);
+
+$router->group(
+    ['prefix' => 'order'],
+    function () use ($router) {
+        $router->get('/', ['as' => 'orderList', 'uses' => 'OrderController@list']);
+        $router->post('/', ['as' => 'orderCreate', 'uses' => 'OrderController@create']);
+    }
+);
